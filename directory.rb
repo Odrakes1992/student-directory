@@ -25,10 +25,25 @@ students = []
 name = gets.chomp
 #while thename is not empty, repeat this code
 
+
 while !name.empty? do
 #add the student hash to the array
-students << {name: name, cohort: :november}
-puts "Now we have #{students.count} students"
+puts "Now type in the cohort"
+cohort = gets.chomp
+
+if !cohort.empty? && students.length > 1
+  students << {name: name, cohort: cohort}
+  puts "Now we have #{students.count} students"
+elsif cohort.empty? && students.length > 1
+  students << {name: name, cohort: :november}
+  puts "Now we have #{students.count} students"
+elsif cohort.empty? && students.length <= 1
+  students << {name: name, cohort: :november}
+  puts "Now we have #{students.count} student"
+elsif !cohort.empty? && students.length <= 1
+  students << {name: name, cohort: cohort}
+  puts "Now we have #{students.count} student"
+end
 
 name = gets.chomp
 
@@ -45,8 +60,13 @@ puts "---------------"
 end
 
 def print(students)
-students.each  do |student|
-  puts "#{student[:name]} (#{student[:cohort]} cohort)"
+students.each_with_index  do |student,ind|
+index = ind + 1
+if student[:name].length < 18
+  string =  "#{index} #{student[:name]} (#{student[:cohort]}-cohort)"
+  puts string.center(18)
+  puts "Howdy #{index} #{student[:name]} friends".center(18)
+end
 end  
 end
 
