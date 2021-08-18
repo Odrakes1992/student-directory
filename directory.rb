@@ -53,20 +53,29 @@ students
 end
 
 
-
 def print_header
 puts "The students of Villains Academy"
 puts "---------------"
 end
 
 def print(students)
-students.each_with_index  do |student,ind|
-index = ind + 1
-if student[:name].length < 18
-  string =  "#{index} #{student[:name]} (#{student[:cohort]}-cohort)"
-  puts string.center(18)
-  puts "Howdy #{index} #{student[:name]} friends".center(18)
+
+puts "What cohort do you want to see, if it doesn't exist nothing will show"  
+cohort = gets.chomp
+
+while cohort.empty?
+  puts "Try again"
+  cohort = gets.chomp
+    if !cohort.empty?
+      break
+    end
 end
+
+students.map do |student|
+  if student[:cohort] == cohort
+    string = " #{student[:name]} (#{student[:cohort]}-cohort)"
+    puts string.center(18)
+  end
 end  
 end
 
@@ -78,5 +87,4 @@ end
 students = input_students
 print_header
 print(students)
-print_footer(students
-)
+print_footer(students)
